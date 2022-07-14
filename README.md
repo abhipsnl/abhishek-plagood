@@ -65,3 +65,9 @@ $(echo http://$(terraform output load-balancer-ip) | sed 's/\"//g')
 ```
 terraform destroy
 ```
+
+## Watch full Demo
+
+
+[![Watch Full Demo](https://img.youtube.com/vi/YA_Ar67ZC_I/0.jpg)](https://www.youtube.com/watch?v=YA_Ar67ZC_I)
+
