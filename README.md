@@ -1,4 +1,4 @@
-# Global HTTP Example to GCE instances with NAT Gateway
+# HTTP LB Example to GCE instances with NAT Gateway with RATE.
 
 [![button](http://gstatic.com/cloudssh/images/open-btn.png)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/GoogleCloudPlatform/terraform-google-lb-http&working_dir=examples/http-nat-gateway&page=shell&tutorial=README.md)
 
@@ -8,10 +8,10 @@ This example creates a global HTTP forwarding rule to an instance group without 
 
 ![architecture diagram](./diagram.png)
 
-## Change to the example directory
+## Change to the core directory
 
 ```
-[[ `basename $PWD` != mig-nat-http-lb ]] && cd examples/mig-nat-http-lb
+[[ `basename $PWD` != abhishek-plagood ]] && cd abhishek-plagood
 ```
 
 ## Install Terraform
@@ -44,15 +44,19 @@ terraform init
 terraform apply
 ```
 
-## Testing
+## Verify the deployment
+
+```
+$(echo http://$(terraform output load-balancer-ip) | sed 's/\"//g')
+```
+
+## Load Testing
 
 1. Open the URL of the load balancer in your browser:
 
 ```
-echo http://$(terraform output load-balancer-ip)
+./load-test.sh
 ```
-
-You should see the instance details from `group1`.
 
 ## Cleanup
 
@@ -61,23 +65,3 @@ You should see the instance details from `group1`.
 ```
 terraform destroy
 ```
-
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| network\_name | n/a | `string` | `"tf-lb-http-mig-nat"` | no |
-| project | n/a | `string` | n/a | yes |
-| region | n/a | `string` | `"us-west1"` | no |
-| zone | n/a | `string` | `"us-west1-b"` | no |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| backend\_services | n/a |
-| load-balancer-ip | n/a |
-| load-balancer-ipv6 | The IPv6 address of the load-balancer, if enabled; else "undefined" |
-
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
